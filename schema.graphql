@@ -1,0 +1,42 @@
+"""Exposes a URL that specifies the behavior of this scalar."""
+directive @specifiedBy(
+  """The URL that specifies the behavior of this scalar."""
+  url: String!
+) on SCALAR
+
+"""
+Indicates exactly one field must be supplied and this field must not be `null`.
+"""
+directive @oneOf on INPUT_OBJECT
+
+type BetItem {
+  id: ID!
+  title: String!
+  endTime: String!
+  teamLogo: String!
+  betOption: BetOption!
+}
+
+type BetOption {
+  team: String!
+  spread: String!
+  odds: Int!
+}
+
+type BetResult {
+  success: Boolean!
+  message: String!
+  remainingCash: Float!
+  remainingCoin: Int!
+}
+
+type Mutation {
+  confirmBet(amount: Float!, isCashMode: Boolean!): BetResult!
+}
+
+type Query {
+  bets: [BetItem!]!
+  totalCash: Float!
+  totalCoin: Int!
+}
+
